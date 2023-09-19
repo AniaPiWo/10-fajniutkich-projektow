@@ -1,0 +1,86 @@
+:root {
+    --brightness: 100%;
+    --contrast: 100%;
+    --saturation: 100%;
+    --blur: 0px;
+    --hue: 0deg;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    gap: 20px;
+}
+
+img {
+    max-width: 500px;
+    border-radius: 50px;
+}
+
+.wrapper {
+    display: flex;
+    gap: 30px;
+}
+
+.range-bars {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.example-img {
+    filter:
+        brightness(var(--brightness))
+        contrast(var(--contrast))
+        saturate(var(--saturation))
+        blur(var(--blur))
+        hue-rotate(var(--hue));
+}
+
+/* Styl dla przycisku */
+button {
+    margin-top: 40px;
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    width: 85%;
+    border: none;
+    color: white;
+    padding: 14px 24px;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Efekt "hover" */
+  button:hover {
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Efekt "active" */
+  button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tekst {
+    background: linear-gradient(to right, #36D1DC, #5B86E5);
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    width: 85%;
+    cursor: pointer;
+  }
+  
+
+  
