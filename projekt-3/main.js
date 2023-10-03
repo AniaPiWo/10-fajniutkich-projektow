@@ -1,50 +1,69 @@
-const user_span = document.querySelector('.user_span');
+const infobox = document.querySelector('.infobox');
+const notes = document.querySelector('.notes');
+const save_btn = document.querySelector('.save_btn');
+const textarea = document.querySelector('.note_text');
+const empty_list = document.querySelector('.empty_list');
 
-//LocalStorage - przechowuje stringi do 10mb dla danej domeny
-//LocalStorage pracuje z domena i w zakresie przegladarki
-//jesli chcemy boolean, number itd musimy je wczesniej na stringa
-//mozna tez jsona
-//Dane w LocalStorage sa trwale i nei wygasaja, sa dostepne w zakladkach jesli maja ta sama domene glowna
-//zostaja az sie je usunie
-//np koszyk zakupowy, caching danych API, uzupelnianie formularzy
+function init() {
+  const notesArray = [];
+  Object.keys(localStorage).forEach((keyNote) => {
+    const textNote = localStorage.getItem(keyNote);
+    notesArray.push({ keyNote, textNote });
+  });
+  notesArray.sort((a, b) => b.keyNote - a.keyNote);
+  notesArray.forEach(({ keyNote, textNote }) => {
+    createNote(keyNote, textNote);
+    empty_list.style.display = 'none';
+  });
+}
+init();
 
-//API localStorage
-//localStorage.setItem("klucz", "wartość")
-localStorage.setItem('id', '140');
+function saveNote() {
+  const textNote = textarea.value;
+  const keyNote = Date.now().toString();
+  if (textNote === '') {
+    infobox.innerHTML = 'You entered a task without content!';
+    setTimeout(() => {
+      infobox.innerHTML = '';
+    }, 2000);
+    return;
+  }
 
-//localStorage.getItem("klucz")
-localStorage.getItem('id');
-
-//localStorage.removeItem("id")
-localStorage.removeItem('id');
-
-//remove all
-localStorage.clear();
-
-localStorage.setItem('id1', '140');
-localStorage.setItem('id2', '146');
-const localLength = localStorage.length; //ilosc par klucz-warosc
-console.log(localLength);
-
-//JSON
-const user = { name: 'jagna', age: 5 };
-localStorage.setItem('user', JSON.stringify(user));
-
-const stored_user = JSON.parse(localStorage.getItem('user'));
-console.log(stored_user);
-user_span.textContent = `${stored_user.name}, age ${stored_user.age}`;
-
-window.addEventListener('storage', function (event) {
-  console.log('Klucz zmieniony', event.key);
-  console.log('Stara wartość');
-  console.log('Nowa wartość');
-});
-
-//obsluga bledow
-try {
-  localStorage.setItem('key', 'value');
-} catch (event) {
-  console.error('co sie tu:', event);
+  localStorage.setItem(keyNote, textNote);
+  createNote(keyNote, textNote);
+  textarea.value = '';
+  empty_list.style.display = 'none';
+  infobox.innerHTML = 'Task added!';
+  setTimeout(() => {
+    infobox.innerHTML = '';
+  }, 2000);
 }
 
-console.log(localStorage);
+function deleteNote(keyNote) {
+  localStorage.removeItem(keyNote);
+  const div = document.getElementById(keyNote);
+  div.remove();
+  infobox.innerHTML = 'Task deleted!';
+  setTimeout(() => {
+    infobox.innerHTML = '';
+  }, 2000);
+}
+
+function createNote(keyNote, textNote) {
+  const div = document.createElement('div');
+  div.id = keyNote;
+  div.textContent = textNote;
+  div.className = 'text_item';
+  /*   const text = document.createTextNode(textNote);
+  div.appendChild(text); */
+  const button = document.createElement('button');
+  button.textContent = 'X';
+  button.className = 'delete_btn';
+  button.onclick = () => {
+    deleteNote(keyNote);
+  };
+  div.appendChild(button);
+  notes.appendChild(div);
+}
+
+save_btn.addEventListener('click', saveNote);

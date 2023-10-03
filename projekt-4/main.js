@@ -1,69 +1,57 @@
-const infobox = document.querySelector('.infobox');
-const notes = document.querySelector('.notes');
-const save_btn = document.querySelector('.save_btn');
-const textarea = document.querySelector('.note_text');
-const empty_list = document.querySelector('.empty_list');
+const voteForm = document.querySelector('.vote-form');
+const voteOptions = document.querySelector('.vote-options');
+const voteResult = document.querySelector('.results');
+const voteInfo = document.querySelector('.vote-info');
+const userName = document.querySelector('.user-name');
+const userId = document.querySelector('.user-id');
 
-function init() {
-  const notesArray = [];
-  Object.keys(localStorage).forEach((keyNote) => {
-    const textNote = localStorage.getItem(keyNote);
-    notesArray.push({ keyNote, textNote });
-  });
-  notesArray.sort((a, b) => b.keyNote - a.keyNote);
-  notesArray.forEach(({ keyNote, textNote }) => {
-    createNote(keyNote, textNote);
-    empty_list.style.display = 'none';
-  });
-}
-init();
+const validUserIds = new Map([
+  ['Roman', '12345678'],
+  ['Stanisław', '87654321'],
+  ['Dzesika', '11111111 '],
+  ['Krzysiek', '22222222 '],
+  ['Brajan', '33333333 '],
+]);
 
-function saveNote() {
-  const textNote = textarea.value;
-  const keyNote = Date.now().toString();
-  if (textNote === '') {
-    infobox.innerHTML = 'You entered a task without content!';
-    setTimeout(() => {
-      infobox.innerHTML = '';
-    }, 2000);
+const voteCount = new Map();
+voteCount.set('Opcja 1', 0);
+voteCount.set('Opcja 2', 0);
+voteCount.set('Opcja 3', 0);
+
+//userzy ktorzy juz glosowali
+const votedUsers = new Set();
+
+const voting = (e) => {
+  e.preventDefault();
+  const user = userName.value;
+  const password = userId.value;
+  const select = voteOptions.value;
+  if (validUserIds.get(user) === password) {
+    if (votedUsers.has(user)) {
+      voteInfo.textContent = 'Już głosowałeś!';
+      return;
+    } else {
+      votedUsers.add(user);
+      voteCount.set(select, voteCount.get(select) + 1);
+      console.log(votedUsers);
+    }
+  } else {
+    voteInfo.textContent = 'Nieprawidłowe dane!';
     return;
   }
+  updateResult();
+};
 
-  localStorage.setItem(keyNote, textNote);
-  createNote(keyNote, textNote);
-  textarea.value = '';
-  empty_list.style.display = 'none';
-  infobox.innerHTML = 'Task added!';
-  setTimeout(() => {
-    infobox.innerHTML = '';
-  }, 2000);
-}
+const updateResult = () => {
+  voteResult.style.display = 'block';
+  let output = '';
+  voteCount.forEach((value, option) => {
+    output += `<li>${option}: ${value}</li>`;
+  });
+  /*   for (const [option, value] of voteCount.entries()) {
+    output += `<li>${option}: ${value}</li>`;
+  } */
+  voteResult.innerHTML = output;
+};
 
-function deleteNote(keyNote) {
-  localStorage.removeItem(keyNote);
-  const div = document.getElementById(keyNote);
-  div.remove();
-  infobox.innerHTML = 'Task deleted!';
-  setTimeout(() => {
-    infobox.innerHTML = '';
-  }, 2000);
-}
-
-function createNote(keyNote, textNote) {
-  const div = document.createElement('div');
-  div.id = keyNote;
-  div.textContent = textNote;
-  div.className = 'text_item';
-  /*   const text = document.createTextNode(textNote);
-  div.appendChild(text); */
-  const button = document.createElement('button');
-  button.textContent = 'X';
-  button.className = 'delete_btn';
-  button.onclick = () => {
-    deleteNote(keyNote);
-  };
-  div.appendChild(button);
-  notes.appendChild(div);
-}
-
-save_btn.addEventListener('click', saveNote);
+voteForm.addEventListener('submit', voting);
