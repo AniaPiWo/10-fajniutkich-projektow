@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>App Face Generator</title>
+</head>
+
+<body>
+  <form id="form">
+    <select id="gender">
+      <option value="female">Kobieta</option>
+      <option value="male">Mężczynza</option>
+    </select>
+    <select id="ethnicity">
+      <option value="european">Europejczyk</option>
+      <option value="african">Afrykańczyk</option>
+      <option value="east_asian">Azja</option>
+    </select>
+    <label for="age"><input type="text" id="age" placeholder="Wpisz wiek (18-70)" required></label>
+    <button type="submit">Generuj twarz</button>
+    <div id="image-container"></div>
+  </form>
+  <script src="main.js"></script>
+</body>
+
+</html>
