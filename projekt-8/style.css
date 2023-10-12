@@ -23,17 +23,19 @@ button {
   transition: background-color 0.3s ease-in-out;
 }
 
-button:hover {
-  background-color: grey;
-}
 
-.red {
-  border: 1px solid red;
-  color: red;
+.orange {
+  border: 1px solid orange;
+  color: orange;
 }
 
 .white {
   border: 1px solid white;
   color: white;
+}
+
+.hotpink {
+  border: 1px solid hotpink;
+  color: hotpink;
 }
 
