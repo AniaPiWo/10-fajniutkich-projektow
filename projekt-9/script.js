@@ -28,10 +28,6 @@ const activeCards = [];
 const gamePairs = cards.length / 2;
 let gameResult = 0;
 
-if (gamePairs === gameResult) {
-  console.log('koniec gry');
-}
-
 const clickCard = function () {
   activeCard = this;
 
@@ -60,7 +56,6 @@ const clickCard = function () {
         }
       } else {
         activeCards.forEach((card) => card.classList.add('hidden'));
-        console.log('przegrana');
       }
       activeCard = '';
       activeCards.length = 0;
