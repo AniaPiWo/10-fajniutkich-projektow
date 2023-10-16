@@ -1,0 +1,78 @@
+/* style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0d1117; /* Dark background */
+    color: #c9d1d9; /* Light text color */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form{
+    background-color: #161b22; /* Slightly lighter background */
+    padding: 25px;
+    border: 1px solid #21262d; /* Border color */
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 350px;
+    margin: 0;
+}
+
+#email, #phone, #password {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #21262d; /* Border color */
+    border-radius: 6px;
+    background-color: #0d1117; /* Darker input background */
+    color: #c9d1d9; /* Light text color */
+}
+
+button{
+    background-color: #ff6c6c; /* Vivid pink button */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff4633; /* Darker shade of pink on hover */
+}
+
+.alertbox {
+    height: 10px;
+    text-align: start;
+    color: #ff6c6c;
+    margin: 5px 0;
+    padding: 5px 0;
+}
+
+.successbox {
+
+    text-align: start;
+    color: #6dff6d;
+    font-size: 36px;
+    margin: 5px 0;
+    padding: 5px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Additional styles, you can enable them if you want to customize the form's appearance */
+/* input[type="email"]:focus, input[type="tel"]:focus, input[type="password"]:focus {
+    border: 2px solid #ff6c6c; /* Bright pink border on focus 
+    outline: none;
+} */
+
+/* Customize the form's appearance to your preferences */
